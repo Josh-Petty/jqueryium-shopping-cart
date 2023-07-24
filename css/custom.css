@@ -1,0 +1,34 @@
+body {
+  font-size: 16px;
+}
+
+th, td {
+  width: 30%;
+}
+
+.itemSub {
+  width: 10%;
+}
+
+input {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.itemInput, .priceInput {
+  margin-left: 0;
+}
+
+form {
+  margin-top: -15px;
+}
+
+#newItem, #newItemPrice {
+  width: 25%;
+  margin-right: 4%;
+}
+
+#addItemBtn {
+  width: 15%;
+  margin-left: 1%;
+}
