@@ -1,5 +1,21 @@
 var sum = function (acc, x) { return acc + x; };
 
+var formatter = function (price) {
+  var original = String(price);
+  var splitArray = original.split('.');
+  var whole = splitArray[0];
+  var change;
+  if (splitArray.length < 2) {
+    change = "00";
+  } else if (splitArray[1].length < 2) {
+    change = splitArray[1] + '0';
+  } else {
+    change = splitArray[1];
+  }
+  
+  return `${whole}.${change}`;
+}
+
 var updateSubtotalAndTotal = function () {
   var subtotalsValues = [];
 
@@ -8,7 +24,7 @@ var updateSubtotalAndTotal = function () {
     var qty = parseFloat($(ele).find('.qty input').val());
 
     var subtotal = price * qty;
-    $(ele).children('.itemSub').html(`$${subtotal}`);
+    $(ele).children('.itemSub').html(`$${formatter(subtotal.toFixed(2))}`);
 
     return subtotal;
   }  
@@ -17,7 +33,7 @@ var updateSubtotalAndTotal = function () {
     var subtotal = updateSubtotal(ele);
     subtotalsValues.push(subtotal);
 
-    var cartTotal = subtotalsValues.reduce(sum);
+    var cartTotal = formatter(subtotalsValues.reduce(sum).toFixed(2));
     $('#cartTotal').html(cartTotal);
     });
 }
@@ -43,8 +59,8 @@ $(document).ready(function () {
 
   $('#addItem').on('submit', function (event) {
     event.preventDefault();
-    var newItem = $(this).children(' [name=item] ').val();
-    var newPrice = $(this).children(' [name=price] ').val();
+    var newItem = $(this).children('#newItem').val();
+    var newPrice = formatter($(this).children('#newItemPrice').val());
     
     $('tbody').append('<tr>' + 
       '<td class="item">' + newItem + '</td>' +
